@@ -5,7 +5,7 @@ import Img from "gatsby-image"
 import { Button } from "./Button"
 import { ImLocation } from "react-icons/im"
 
-const Trips = () => {
+const Trips = ({ heading }) => {
   const data = useStaticQuery(graphql`
     query TripsQuery {
       allTripsJson {
@@ -33,7 +33,7 @@ const Trips = () => {
       tripsArray.push(
         <ProductCard key={index}>
           <ProductImg
-            src={item.node.img.childImageSharp.fluid.src}
+            // src={item.node.img.childImageSharp.fluid.src}
             alt={item.node.alt}
             fluid={item.node.img.childImageSharp.fluid}
           />
@@ -42,7 +42,18 @@ const Trips = () => {
               <ImLocation />
               <ProductTitle>{item.node.name}</ProductTitle>
             </TextWrap>
-            <Button to="/trips">{item.node.button}</Button>
+            <Button
+              to="/trips"
+              primary="true"
+              round="true"
+              css={`
+                position: absolute;
+                top: 420px;
+                font-size: 14px;
+              `}
+            >
+              {item.node.button}
+            </Button>
           </ProductInfo>
         </ProductCard>
       )
@@ -51,7 +62,7 @@ const Trips = () => {
   }
   return (
     <ProductsContainer>
-      <ProductsHeading>Heading</ProductsHeading>
+      <ProductsHeading>{heading}</ProductsHeading>
       <ProductWrapper>{getTrips(data)}</ProductWrapper>
     </ProductsContainer>
   )
@@ -62,7 +73,7 @@ export default Trips
 const ProductsContainer = styled.div`
   min-height: 100vh;
   padding: 5rem calc((100vw - 1300px) / 2);
-  background: red;
+  /* background: red; */
   color: #fff;
 `
 const ProductsHeading = styled.div`
@@ -108,9 +119,25 @@ const ProductImg = styled(Img)`
 `
 
 const ProductInfo = styled.div`
- 
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0 2rem;
+
+  @media screen and (max-width: 280px) {
+    padding: 0 1rem;
+  }
 `
 
-const TextWrap = styled.div``
+const TextWrap = styled.div`
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 375px;
+`
 
-const ProductTitle = styled.div``
+const ProductTitle = styled.div`
+  font-weight: 400;
+  font-size: 1rem;
+  margin-left: 0.5rem;
+`
