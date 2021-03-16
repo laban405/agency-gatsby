@@ -18,7 +18,7 @@ const Testimonials = () => {
           node {
             childImageSharp {
               fluid {
-                src
+                ...GatsbyImageSharpFluid
               }
             }
           }
@@ -33,22 +33,39 @@ const Testimonials = () => {
       <ContentWrapper>
         <ColumnOne>
           <Testimonial>
-            <IoMdCheckmarkCircleOutline />
+            <IoMdCheckmarkCircleOutline
+              css={`
+                color: #3fffa8;
+                font-size: 2rem;
+                margin-bottom: 1rem;
+              `}
+             />
             <h3>Sean Michaels</h3>
             <p>The greatest expereience of my life</p>
           </Testimonial>
           <Testimonial>
-            <IoMdCheckmarkCircleOutline />
+            <IoMdCheckmarkCircleOutline
+              css={`
+                color: #3fffa8;
+                font-size: 2rem;
+                margin-bottom: 1rem;
+              `}
+            />
             <h3>Sean Michaels</h3>
             <p>The greatest expereience of my life</p>
           </Testimonial>
           <Testimonial>
-            <FaRegLightbulb />
+            <FaRegLightbulb
+              css={`
+                color: #f9b19b;
+                font-size: 2rem;
+                margin-bottom: 1rem;
+              `}
+            />
             <h3>Mary Jane</h3>
             <p>The greatest expereience of my life</p>
           </Testimonial>
         </ColumnOne>
-        <Images />
         <ColumnTwo>
           {data.allFile.edges.map((image, key) => {
             return <Images key={key} fluid={image.node.childImageSharp.fluid} />
@@ -65,7 +82,7 @@ const TestimonialsContainer = styled.div`
   width: 100%;
   background: #fcfcfc;
   color: #000;
-  padding: 5rem calc((100vw-1300px) / 2);
+  padding: 5rem calc((100vw - 1300px) / 2);
   height: 100%;
 `
 
@@ -93,7 +110,11 @@ const ContentWrapper = styled.div`
 `
 const ColumnOne = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+
+  /* @media screen and (max-width: 500px) {
+    grid-template-columns: 1fr;
+  } */
 `
 const Testimonial = styled.div`
   padding-top: 1rem;
